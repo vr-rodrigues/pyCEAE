@@ -1,9 +1,12 @@
 import pandas as pd
-from functools import reduce
 from dict_auxiliar import cesta_light, cesta_padrao, cesta_vegan, cesta_top
 
+# Definição de Funções Auxiliares
 
 def mean_price(df):
+    '''
+    Esta função faz a correção do preço relacionando o peso observado e o peso da cesta
+    '''
 
     for i in range(1, 4):
         df[f'preco_{i}'] = ((df[f'preco_{i}'] * df['peso']) / df['peso_obs']).round(decimals=2)
@@ -17,6 +20,9 @@ def mean_price(df):
 
 
 def item_inflation(df):
+    '''
+    Esta função faz o calculo da inflação por item
+    '''
     df = mean_price(df)
 
     df = df.drop(columns=['regiao'])
@@ -34,6 +40,9 @@ def item_inflation(df):
 
 
 def basket_inflation(df):
+    '''
+    Esta função faz o calculo da inflação por cesta
+    '''
     df = mean_price(df)
     df = df.drop(columns=['regiao'])
     df = df.groupby(by=['nome', 'data']).mean().round(decimals=4)
@@ -54,6 +63,8 @@ def basket_inflation(df):
     return df
 
 
+# Carregando Base de Dados
 base = pd.read_excel('base_alimento.xlsx')
 
+# Printando Resultados
 print(basket_inflation(base).to_string())
