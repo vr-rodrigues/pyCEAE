@@ -1,10 +1,11 @@
 import pandas as pd
 from funcoes import adequa_forms, item_inflation, basket_inflation
 
-if __name__ == '__main__':
-# ===========================================
-# Atualização da Base de Dados
-# ===========================================
+
+def main():
+    # ===========================================
+    # Atualização da Base de Dados
+    # ===========================================
 
     xlsx_forms = input('Qual o nome (sem extensão) da base de resposta do forms? Precisa estar em xlsx. R: ')
 
@@ -36,3 +37,7 @@ if __name__ == '__main__':
 
     inflacao_cesta.to_csv('inflacao_cesta.csv', encoding='utf-16', sep=';', index=False, header=True, decimal=',')
     print("Arquivo inflacao_cesta.csv atualizado")
+
+
+if __name__ == '__main__':
+    main()
